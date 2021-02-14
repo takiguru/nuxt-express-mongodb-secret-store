@@ -52,4 +52,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Options object for mongoose
+  mongooseOptions: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
 }

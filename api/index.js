@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const { default: config } = require('../nuxt.config.js')
@@ -15,6 +16,8 @@ mongoose
     console.error(error)
   })
 const app = express()
+
+app.use(bodyParser.json())
 
 app.use(routes)
 

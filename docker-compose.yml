@@ -1,0 +1,23 @@
+version: '3'
+services:
+  secret-app:
+    depends_on:
+      - mongodb
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_CONNECTION_STRING=mongodb://mongodb:27017/secret
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="test"
+    ports:
+      - 27017:27017
+    logging:
+      driver: 'none'

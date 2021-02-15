@@ -21,7 +21,7 @@ router.get('/:hash', async function (req, res, next) {
     }
   }
 
-  if ('remainingViews' in secret) {
+  if (Number.isInteger(secret.remainingViews)) {
     if (secret.remainingViews === 0) {
       res.status(400).json({ message: 'Secret run out of remaining views' })
       return
@@ -45,8 +45,8 @@ router.post('/', async function (req, res, next) {
     iv,
     hash: secretHash,
     secretText: encryptedText,
-    expiresAt: req.body.expiresAt
-      ? dayjs(req.body.expiresAt).toDate()
+    expiresAt: req.body.expireAfter
+      ? dayjs(req.body.expireAfter).toDate()
       : undefined,
     remainingViews: req.body.expireAfterViews,
   })

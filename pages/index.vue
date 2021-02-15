@@ -1,68 +1,40 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">nuxt-express-mongodb-secret-store</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
+  <v-container fill-height>
+    <v-row justify="center" align-content="center">
+      <v-col>
+        <div class="text-h3 mb-5">Secret Store</div>
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="secretValue"
+          label="Give me your secret here"
+          :append-icon="'mdi-magnify'"
+          @click:append="submitSecretHash"
         >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+        </v-text-field>
+        <v-btn to="/create">Create a new secret</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      secretValue: '',
+    }
+  },
+  methods: {
+    submitSecretHash() {
+      if (this.secretValue.length === 0) {
+        this.$notifier.showMessage({
+          content: "That's not a secret",
+          color: 'warning',
+        })
+      }
+      this.$router.push(`/${this.secretValue}`)
+    },
+  },
+}
 </script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
